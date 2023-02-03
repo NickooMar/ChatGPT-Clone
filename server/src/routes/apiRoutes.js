@@ -18,12 +18,15 @@ router.route("/").get((req, res) => {
 
 router.route("/").post(async (req, res) => {
   const { prompt } = req.body;
+
+  // res.status(200).json(prompt);
+
   try {
     const apiResponse = await openai.createCompletion({
-      model: "code-davinci-002",
+      model: "text-davinci-003",
       prompt: prompt,
       temperature: 0,
-      max_tokens: 64,
+      max_tokens: 2048 ,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
@@ -31,10 +34,10 @@ router.route("/").post(async (req, res) => {
 
     const codeCompletion = apiResponse.data.choices[0].text;
 
-    res.status(200).json({ data: codeCompletion });
+    res.status(200).json(codeCompletion);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: error?.response.data.error });
+    res.status(500).json({ error: error });
   }
 });
 

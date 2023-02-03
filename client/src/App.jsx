@@ -4,7 +4,11 @@ import { Link, Routes, Route } from "react-router-dom";
 import { ChatGPT, Homepage } from "./pages";
 import { logo } from "./assets";
 
+import { useLocation } from "react-router-dom";
+
 function App() {
+  const location = useLocation();
+
   return (
     <>
       <header className="w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b[#e6ebf4]">
@@ -14,12 +18,21 @@ function App() {
           </Link>
         </div>
         <div className="gap-10 items-center flex flex-col md:flex-row mx-8">
-          <Link
-            to="/chat"
-            className="font-medium bg-[#7D7C7A] text-white px-4 py-2 rounded-md hover:opacity-50"
-          >
-            <h1 style={{ fontFamily: "montserrat" }}>Chat GPT</h1>
-          </Link>
+          {location.pathname === "/" ? (
+            <Link
+              to="/chat"
+              className="font-medium bg-[#7D7C7A] text-white px-4 py-2 rounded-md hover:opacity-50"
+            >
+              <h1 style={{ fontFamily: "montserrat" }}>Chat GPT</h1>
+            </Link>
+          ) : (
+            <Link
+              to="/"
+              className="font-medium bg-[#7D7C7A] text-white px-4 py-2 rounded-md hover:opacity-50"
+            >
+              <h1 style={{ fontFamily: "montserrat" }}>Open AI</h1>
+            </Link>
+          )}
           <Link
             to="https://openai.com/api/"
             className="font-inter font-medium px-4 py-2 rounded-md hover:opacity-60"
